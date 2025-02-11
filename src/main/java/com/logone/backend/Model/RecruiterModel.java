@@ -27,6 +27,9 @@ public class RecruiterModel {
   public String description;
   public String Location;
 
+  @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<JobModel> jobs = new ArrayList<>();
+
   @Column(nullable = false, updatable = false)
   private LocalDateTime createdAt;
 

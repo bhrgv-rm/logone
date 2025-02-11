@@ -2,7 +2,10 @@ package com.logone.backend.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.logone.backend.Repository.JobRepository;
 import com.logone.backend.Repository.RecruiterRepository;
+import com.logone.backend.Model.JobModel;
 import com.logone.backend.Model.RecruiterModel;
 import java.util.*;
 
@@ -11,6 +14,8 @@ public class RecruiterService {
 
   @Autowired
   private RecruiterRepository recruiterRepository;
+  @Autowired
+  private JobRepository jobRepository;
 
   public List<RecruiterModel> getAllRecruiters() {
     return recruiterRepository.findAll();
@@ -34,6 +39,17 @@ public class RecruiterService {
     } else {
       throw new RuntimeException("Recruiter not found with id " + id);
     }
+  }
+
+  public JobModel addJobPosting(String recruiterEmail, JobModel job) {
+    RecruiterModel recruiter = recruiterRepository.findByEmail(recruiterEmail);
+
+    if (recruiter == null) {
+      throw new RuntimeException("Recruiter not found");
+    }
+
+    job.setRecruiter(recruiter); // Assign recruiter to job
+    return jobRepository.save(job);
   }
 
   public void deleteRecruiter(UUID id) {

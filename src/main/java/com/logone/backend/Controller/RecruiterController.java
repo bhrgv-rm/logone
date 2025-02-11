@@ -1,6 +1,7 @@
 package com.logone.backend.Controller;
 
 import com.logone.backend.Model.RecruiterModel;
+import com.logone.backend.Model.JobModel;
 import com.logone.backend.Service.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +38,10 @@ public class RecruiterController {
   public void deleteRecruiter(@PathVariable UUID id) {
     recruiterService.deleteRecruiter(id);
   }
+
+  @PostMapping("/posting")
+  public JobModel createPosting(@RequestBody JobModel job, @RequestHeader("recruiter-email") String recruiterEmail) {
+    return recruiterService.addJobPosting(recruiterEmail, job);
+  }
+
 }
