@@ -1,0 +1,23 @@
+meta {
+  name: addPosting
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/posting
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "jobTitle": "Software Engineer",
+    "description": "We are looking for a Software Engineer with expertise in Java and Spring Boot.",
+    "location": "New York, NY",
+    "recruiter": {
+      "id": "d0b3f8e7-63ed-4b6f-b8d0-167722df62c1"
+    }
+  }
+  
+}
